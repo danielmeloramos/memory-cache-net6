@@ -1,3 +1,5 @@
+using Simple.Memory.Cache.Application.Features.States;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +8,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(Program));
+
+//Services
+builder.Services.AddScoped<IStateService, StateService>();
 
 var app = builder.Build();
 
