@@ -2,7 +2,7 @@
 
 namespace Simple.Memory.Cache.Infra.Cache
 {
-    public class CacheService<T> : ICacheService<T>
+    public class CacheService : ICacheService
     {
         protected readonly IMemoryCache _memoryCache;
 
@@ -11,7 +11,7 @@ namespace Simple.Memory.Cache.Infra.Cache
             _memoryCache = memoryCache;
         }
 
-        public Task<T> GetAsync(string cacheKey)
+        public Task<T> GetAsync<T>(string cacheKey)
         {
             _memoryCache.TryGetValue(cacheKey, out T entry);
 
@@ -23,14 +23,14 @@ namespace Simple.Memory.Cache.Infra.Cache
             _memoryCache.Remove(cacheKey);
         }
 
-        public void SetAsync(string cacheKey, T value, MemoryCacheEntryOptions memoryCacheEntryOptions)
+        public void SetAsync<T>(string cacheKey, T value)
         {
-            var options = memoryCacheEntryOptions ?? GetMemoryCacheEntryOptions();
+            var options = GetMemoryCacheEntryOptions();
 
             _memoryCache.Set(cacheKey, value, options);
         }
 
-        private MemoryCacheEntryOptions GetMemoryCacheEntryOptions()
+        private static MemoryCacheEntryOptions GetMemoryCacheEntryOptions()
         {
             return new MemoryCacheEntryOptions()
             {

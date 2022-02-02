@@ -1,4 +1,5 @@
 using Simple.Memory.Cache.Application.Features.States;
+using Simple.Memory.Cache.Infra.Cache;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//MemoryCache
+builder.Services.AddMemoryCache();
+
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
 //Services
-builder.Services.AddScoped<IStateService, StateService>();
+builder.Services.AddSingleton<IStateService, StateService>();
+builder.Services.AddSingleton<ICacheService, CacheService>();
 
 var app = builder.Build();
 

@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-
-namespace Simple.Memory.Cache.Infra.Cache
+﻿namespace Simple.Memory.Cache.Infra.Cache
 {
-    public interface ICacheService<T>
+    public interface ICacheService
     {
-        Task<T> GetAsync(string cacheKey);
+        Task<T> GetAsync<T>(string cacheKey);
 
-        void SetAsync(string cacheKey, T value, MemoryCacheEntryOptions memoryCacheEntryOptions);
+        void SetAsync<T>(string cacheKey, T value);
 
         void RemoveAsync(string cacheKey);
     }
